@@ -1,14 +1,24 @@
 import './contactform.css'
 import {useRef} from 'react';
+import emailjs from '@emailjs/browser';
+
 
 export default function App() {
 
     const form = useRef()
 
+    const sendEmail = (e) => {
+        e.preventDefault();
 
-    function sendEmail() {
-
-    }
+        emailjs.sendForm('service_hui40ds', 'template_rf1t6ve', form.current, 'QWc6t_Mo9vomm4-Oz')
+            .then((result) => {
+                console.log(result.text)
+                alert("Messge send ! Thank you")
+            }, (error) => {
+                console.log(error.text)
+            });
+        e.target.reset()
+    };
 
     return (
         <form ref={form} onSubmit={sendEmail} className="container">
